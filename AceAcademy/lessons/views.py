@@ -2,4 +2,4 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("ACE ACADEMY")
+    return render(request, 'lessons/index.html')
