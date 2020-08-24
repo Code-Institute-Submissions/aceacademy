@@ -27,6 +27,13 @@
 </head>
 
 <body>
+    {% if messages %}  
+    <div class='alert alert-success'>    
+        <div>
+            {% for message in messages %} {{ message }} {% endfor %}
+        </div>
+    </div>
+   {% endif %}
     <!--::header part start::-->
     <header class="main_menu home_menu">
         <div class="container">
