@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount'
+    'allauth.socialaccount',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,9 @@ TEMPLATES = [
         },
     },
 ]
+
+# Alert/Success Message
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -172,3 +176,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

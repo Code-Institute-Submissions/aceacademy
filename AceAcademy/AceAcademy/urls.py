@@ -19,6 +19,6 @@ import lessons.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('lessons/', lessons.views.index),
-    path('accounts/', include('allauth.urls'))
+    path('accounts/', include('allauth.urls')),
+    path('lessons/', include('lessons.urls'))
 ]
