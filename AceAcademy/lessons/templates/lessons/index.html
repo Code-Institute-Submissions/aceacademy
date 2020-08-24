@@ -1,6 +1,7 @@
 {% extends 'base_homepage.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load cloudinary %}
 
 {%block content%}
 {% if request.user.is_authenticated  %}
@@ -18,6 +19,7 @@
     {% for lesson in lessons %}
         <li>
             {{lesson.title}} 
+            {% cloudinary lesson.cover %}
             <a href="{% url 'update_lesson' lesson_id=lesson.id %}">Edit</a>
             <a href="{% url 'delete_lesson' lesson_id=lesson.id %}">Delete</a>
         </li>
