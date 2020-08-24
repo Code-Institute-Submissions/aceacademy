@@ -1,0 +1,12 @@
+{% extends 'base_homepage.html' %}
+{% load static %}
+
+{%block content%}
+<h1>Delete book {{lesson.title}}</h1>
+<p>Are you sure?</p>
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes"/>
+    <a href="{% url 'view_all_lessons' %}">No</a>
+</form>
+{%endblock%}

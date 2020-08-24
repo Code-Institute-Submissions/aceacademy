@@ -1,6 +1,27 @@
 {% extends 'base_homepage.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {%block content%}
-Hello~~
+{% if request.user.is_authenticated  %}
+<p>Welcome {{request.user}}</p>
+{% else %}
+<p>Please <a href="accounts/login">Login</a></p>
+{%endif%}
+
+<h1>Lessons:</h1>
+<form method="GET">
+    {{search_lesson|crispy}}
+    <input type="submit" value="Search"/>
+</form>
+<ul>
+    {% for lesson in lessons %}
+        <li>
+            {{lesson.title}} 
+            <a href="{% url 'update_lesson' lesson_id=lesson.id %}">Edit</a>
+            <a href="{% url 'delete_lesson' lesson_id=lesson.id %}">Delete</a>
+        </li>
+    {%endfor%}
+</ul>
+See no lessons? <a href="{% url 'create_lesson' %}">Create one!</a>
 {%endblock%}
