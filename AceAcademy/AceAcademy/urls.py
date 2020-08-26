@@ -19,9 +19,9 @@ import lessons.views, forum.views, main.views, cart.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
+    path('account/', include('accounts.urls')),
     path('lessons/', include('lessons.urls')),
-    path('', main.views.homepage),
+    path('', main.views.homepage, name='home'),
     path('forum/', include('forum.urls')),
     path('cart/', include('cart.urls'))
 ]
