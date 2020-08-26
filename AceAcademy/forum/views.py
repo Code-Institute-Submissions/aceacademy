@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404
-from .models import Forum, Comment
+from .models import Thread, Comments
 from .forms import CommentForm, ForumForm
 
 # Create your views here.

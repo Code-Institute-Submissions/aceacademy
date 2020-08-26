@@ -1,22 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
-from lessons.models import Lesson
+from django.core.validators import MinLengthValidator
 
 # Create your models here.
-class Forum(models.Model):
-    review_title: models.CharField(max_length=255, blank=False)
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-    content = models.TextField(blank=False)
-    date = models.DateField(blank=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Comments(models.Model):
+    thread = models.ForeignKey('Thread', on_delete=models.CASCADE)
+    comment_owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    comment_date = models.DateField(blank=False)
+    comment_content = models.TextField(blank=False)
 
     def __str__(self):
-        return self.title
+        return self
 
-class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField(blank=False)
-    review = models.ForeignKey(Forum, on_delete=models.CASCADE)
+
+class Thread(models.Model):
+    thread_title = models.CharField(blank=False, max_length=255)
+    thread_date = models.DateField(blank=False)
+    thread_content = models.TextField(blank=False)
+    thread_owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.text[0:50]
