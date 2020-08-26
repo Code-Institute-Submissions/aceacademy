@@ -14,7 +14,7 @@ class Instructor(models.Model):
     qualifications = models.TextField(blank=False)
 
     def __str__(self):
-        return self.instructor_preferred_name + " with " + self.years_experience + " of experience"
+        return self.instructor_preferred_name
 
 class Reviews(models.Model):
     lesson_reviewed = models.ForeignKey('Lesson', on_delete=models.CASCADE)
