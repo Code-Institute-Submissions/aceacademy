@@ -1,12 +1,19 @@
-from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
-from .models import Lesson
-from .forms import LessonForm, SearchForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.db.models import Q
-from accounts.views import registerPage, loginPage, logoutUser
 
-# Create your views here.
+from .models import *
+from .forms import *
+from accounts.views import *
+from accounts.forms import CreateUserForm
+from accounts.decorators import unauthenticated_user, allowed_users, admin_only
+
+#Create your views here.
 @login_required(login_url='login')
 def view_lessons(request):
     lessons = Lesson.objects.all()
@@ -19,13 +26,14 @@ def view_lessons(request):
             queries = queries & Q(title__icontains=title)
 
         lessons = lessons.filter(queries)
-    search_lesson = SearchForm(request.GET
-    )
+    search_lesson = SearchForm(request.GET)
     return render(request, 'lessons/view_lessons.html', {
         'lessons': lessons,
         'search_lesson': search_lesson
     })
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def create_lesson(request):
     if request.method == 'POST':
         create_lesson = LessonForm(request.POST)
@@ -44,6 +52,8 @@ def create_lesson(request):
             'form': create_lesson
         })
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def update_lesson(request, lesson_id):
     lesson_being_updated = get_object_or_404(Lesson, pk=lesson_id)
 
@@ -65,6 +75,8 @@ def update_lesson(request, lesson_id):
             'form': lesson_form
         })
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def delete_lesson(request, lesson_id):
     lesson_to_delete = get_object_or_404(Lesson, pk=lesson_id)
     if request.method == 'POST':
