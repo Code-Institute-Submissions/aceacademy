@@ -20,8 +20,10 @@
         <li>
             {{lesson.title}} 
             {% cloudinary lesson.cover %}
+            {% if request.user.is_staff %}
             <a href="{% url 'update_lesson' lesson_id=lesson.id %}">Edit</a>
             <a href="{% url 'delete_lesson' lesson_id=lesson.id %}">Delete</a>
+            {%endif%}
         </li>
     {%endfor%}
 </ul>
