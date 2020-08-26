@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from cloudinary.models import CloudinaryField
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
@@ -21,14 +21,14 @@ class Reviews(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     review_content = models.TextField(blank=False)
     review_date = models.DateField(blank=False)
-    rating = models.IntegerField(blank=False)
+    rating = models.IntegerField(blank=False, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
         return self
         
 class Lesson(models.Model):
     title = models.CharField(blank=False, max_length=255)
-    desc = models.CharField(blank=False, max_length=255)
+    desc = models.TextField(blank=False)
     cost = models.DecimalField(blank=False, max_digits=10, decimal_places=2)
     syllabus = models.CharField(blank=False, max_length=100)
     tags = models.CharField(blank=False, max_length=100)
