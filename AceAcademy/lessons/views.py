@@ -6,7 +6,8 @@ from .forms import LessonForm, SearchForm
 from django.db.models import Q
 
 # Create your views here.
-def index(request):
+
+def view_lessons(request):
     lessons = Lesson.objects.all()
 
     if request.GET:
@@ -19,7 +20,7 @@ def index(request):
         lessons = lessons.filter(queries)
     search_lesson = SearchForm(request.GET
     )
-    return render(request, 'lessons/index.html', {
+    return render(request, 'lessons/view_lessons.html', {
         'lessons': lessons,
         'search_lesson': search_lesson
     })
@@ -27,7 +28,7 @@ def index(request):
 def create_lesson(request):
     if request.method == 'POST':
         create_lesson = LessonForm(request.POST)
-        
+        print(request.POST)
         if create_lesson.is_valid():
             create_lesson.save()
             messages.success(request, f"New lesson has been created!")

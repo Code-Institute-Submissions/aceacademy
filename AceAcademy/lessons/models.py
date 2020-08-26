@@ -7,7 +7,7 @@ from django.core.validators import MinLengthValidator
 # Create your models here.
 
 class Instructor(models.Model):
-    instructor_full_name = models.CharField(blank=False, max_length=100)
+    instructor_full_name = models.CharField(blank=False, max_length=100, validators=[MinLengthValidator(3)])
     instructor_preferred_name = models.Charfield(blank=False, max_length=100)
     years_experience = models.IntegerField(blank=False)
     instructor_mobile_number = PhoneNumberField(blank=False)
