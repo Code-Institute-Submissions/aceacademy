@@ -1,5 +1,5 @@
 from django import forms
-from .models import Lesson
+from .models import Lesson, Instructor, Reviews
 from django.db.models import Q
 from cloudinary.forms import CloudinaryJsFileField
 
@@ -7,7 +7,8 @@ from cloudinary.forms import CloudinaryJsFileField
 class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
-        fields = ('title', 'code', 'desc', 'cover')
+        fields = ('title', 'desc', 'cover', 'cost', 'syllabus', 'tags',
+                    'tags', 'education_level', 'instructor')
         
     cover = CloudinaryJsFileField()
 

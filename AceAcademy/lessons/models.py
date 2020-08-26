@@ -30,7 +30,7 @@ class Reviews(models.Model):
 class Lesson(models.Model):
     title = models.CharField(blank=False, max_length=255)
     desc = models.CharField(blank=False, max_length=255)
-    cost = MoneyField(max_digits=5, decimal_places=2, blank=False, default_currency='SGD')
+    cost = MoneyField(max_digits=10, decimal_places=2, blank=False, default_currency=None)
     syllabus = models.CharField(blank=False, max_length=100)
     tags = models.CharField(blank=False, max_length=100)
     education_level = models.CharField(blank=False, max_length=100)
