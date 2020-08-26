@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.contrib import messages
-from lesson.models import Lesson
+from lessons.models import Lesson
 
 # Create your views here.
 def add_to_cart(request, lesson_id):

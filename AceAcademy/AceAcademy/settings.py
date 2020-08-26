@@ -40,13 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'lessons',
+    'forum',
+    'main',
+    'cart',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
-    'cloudinary'
+    'cloudinary',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +70,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                os.path.join(BASE_DIR, 'templates')],
+                os.path.join(BASE_DIR, 'templates', 'allauth')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -188,5 +193,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CLOUDINARY = {
     'cloud_name': os.environ.get("CLOUDINARY_CLOUD_NAME"),
     'api_key': os.environ.get("CLOUDINARY_API_KEY"),
-    'api_secret': os.environ.get("CLOUDINARY_API_SECRET"),
+    'api_secret': os.environ.get("CLOUDINARY_API_SECRET")
 }
