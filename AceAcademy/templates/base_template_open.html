@@ -27,13 +27,6 @@
 </head>
 
 <body>
-    {% if messages %}  
-    <div class='alert alert-success'>    
-        <div>
-            {% for message in messages %} {{ message }} {% endfor %}
-        </div>
-    </div>
-   {% endif %}
     <!--Navigation Bar-->
     <header class="main_menu home_menu">
         <div class="container">
@@ -72,8 +65,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.html">Contact</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/account/logout">Logout</a>
+                                </li>
                                 <li class="d-none d-lg-block">
-                                    <a class="btn_1" href="/accounts/login">Login/Register</a>
+                                    <a class="btn_1" href="/account/login">Login/Register</a>
                                 </li>
                             </ul>
                         </div>
