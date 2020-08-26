@@ -43,7 +43,20 @@
                         <div class="collapse navbar-collapse main-menu-item justify-content-end"
                             id="navbarSupportedContent">
                             <ul class="navbar-nav align-items-center">
-                                {% if request.user.isnot_staff %}
+                            
+                                {% if request.user.is_staff %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact.html">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="cource.html">Update Courses</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="cource.html">Manage Forum</a>
+                                </li>
+
+                                {% else %}
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" href="cource.html">Browse Courses</a>
                                 </li>
@@ -53,18 +66,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.html">Consultation</a>
                                 </li>
-                                {% endif %}
 
-                                {% if request.user.is_staff %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="cource.html">Browse Courses</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="cource.html">Manage Forum</a>
-                                </li>
                                 {% endif %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="/account/logout">Logout</a>
