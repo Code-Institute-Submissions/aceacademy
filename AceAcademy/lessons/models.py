@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
-from djmoney.models.fields import MoneyField
 from cloudinary.models import CloudinaryField
 from django.core.validators import MinLengthValidator
 
@@ -30,7 +29,7 @@ class Reviews(models.Model):
 class Lesson(models.Model):
     title = models.CharField(blank=False, max_length=255)
     desc = models.CharField(blank=False, max_length=255)
-    cost = MoneyField(max_digits=10, decimal_places=2, blank=False, default_currency=None)
+    cost = models.DecimalField(blank=False, max_digits=10, decimal_places=2)
     syllabus = models.CharField(blank=False, max_length=100)
     tags = models.CharField(blank=False, max_length=100)
     education_level = models.CharField(blank=False, max_length=100)
