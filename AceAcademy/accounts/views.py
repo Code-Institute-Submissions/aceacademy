@@ -10,7 +10,7 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth.models import Group
 
 
-# Create your views here.
+# Regarding user authentication
 @unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()
@@ -40,7 +40,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('user_main')
+            return redirect('index')
 
         else:
             messages.info(request, 'Username OR password is incorrect')
@@ -53,11 +53,9 @@ def logoutUser(request):
     messages.info(request, 'See you soon!')
     return redirect('login')
 
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['user'])
-def user_main(request):
-    return render(request, 'accounts/user_index.html')
+# Homepage
 
 @login_required(login_url='login')
-def admin_main(request):
-    return render(request, 'accounts/admin_index.html')
+# @allowed_users(allowed_roles=['user'])
+def index(request):
+    return render(request, 'accounts/index.html')
