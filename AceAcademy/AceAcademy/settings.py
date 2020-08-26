@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'accounts',
     'lessons',
     'forum',
-    'main',
-    'cart',
     'crispy_forms',
     'cloudinary',
     'phonenumber_field',
