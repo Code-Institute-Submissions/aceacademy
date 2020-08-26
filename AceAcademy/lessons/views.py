@@ -4,9 +4,10 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .models import Lesson
 from .forms import LessonForm, SearchForm
 from django.db.models import Q
+from accounts.views import registerPage, loginPage, logoutUser
 
 # Create your views here.
-
+@login_required(login_url='login')
 def view_lessons(request):
     lessons = Lesson.objects.all()
 
