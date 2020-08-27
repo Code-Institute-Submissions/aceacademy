@@ -18,6 +18,7 @@
             <a href="{% url 'lesson_details' lesson_id=lesson.id %}">See more</a>
             <a href="{% url 'update_lesson' lesson_id=lesson.id %}">Edit</a>
             <a href="{% url 'delete_lesson' lesson_id=lesson.id %}">Delete</a>
+            <a href="{% url 'add_to_cart' lesson_id=lesson.id %}">Add to Cart</a>  
             {%endif%}
         </li>
     {%endfor%}
