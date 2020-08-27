@@ -1,4 +1,4 @@
-{% extends 'index_gated.html' %}
+{% extends 'index_public.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% load cloudinary %}
@@ -14,12 +14,7 @@
         <li>
             {{lesson.title}} 
             {% cloudinary lesson.cover %}
-            {% if request.user.is_staff %}
-            <a href="{% url 'update_lesson' lesson_id=lesson.id %}">Edit</a>
-            <a href="{% url 'delete_lesson' lesson_id=lesson.id %}">Delete</a>
-            {%endif%}
         </li>
     {%endfor%}
 </ul>
-See no lessons? <a href="{% url 'create_lesson' %}">Create one!</a>
 {%endblock%}

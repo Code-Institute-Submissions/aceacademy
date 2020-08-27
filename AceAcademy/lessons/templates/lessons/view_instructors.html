@@ -4,16 +4,11 @@
 {% load cloudinary %}
 
 {%block content%}
-<h1>Lessons:</h1>
-<form method="GET">
-    {{search_lesson|crispy}}
-    <input type="submit" value="Search"/>
-</form>
 <ul>
-    {% for lesson in lessons %}
+    {% for instructor in instructors %}
         <li>
-            {{lesson.title}} 
-            {% cloudinary lesson.cover %}
+            {{instructors.instructor_preferred_name}} 
+            {% cloudinary instructor.cover %}
             {% if request.user.is_staff %}
             <a href="{% url 'update_lesson' lesson_id=lesson.id %}">Edit</a>
             <a href="{% url 'delete_lesson' lesson_id=lesson.id %}">Delete</a>

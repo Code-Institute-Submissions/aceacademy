@@ -1,0 +1,14 @@
+{% extends 'index_public.html' %}
+{% load static %}
+
+{%block content%}
+<br><br>
+<ul>
+    {% for instructor in instructors %}
+        <li>
+            {{instructor.instructor_preferred_name}}
+        </li>
+    {%endfor%}
+</ul>
+Keen on joining us as instructors? Send your resume <a href="mailto:hsu.enyang@gmail.com">here</a>!
+{%endblock%}
