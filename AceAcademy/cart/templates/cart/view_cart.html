@@ -1,23 +1,47 @@
 {% extends 'index_gated.html' %}
 
 {%block content %}
-<h1>Your shopping cart</h1>
-<ul>
-    {% for key, value in cart.items %}
-    <li>
-        {{value.title}} (${{value.cost}}) x {{value.qty}}<br/>
-        Total Cost: ${{value.total_cost}}  <br/>       
-        <form method="POST" action="{% url 'update_cart_quantity' lesson_id=value.id %}">
-            {% csrf_token %}
-            <a href="{% url 'remove_from_cart' lesson_id=value.id %}" class="btn btn-primary btn-sm">Remove</a>
-            <input type="text" name="qty" value="{{value.qty}}" style="width:40px"/>
-            <input type="submit" value="Update quantity" class="btn btn-primary btn-sm"/>
-        </form>
-    </li>
-    {%endfor%}
-</ul>
-<h3>Cart Total: ${{total}}
-    <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
-</h3>
+<div class="whole-wrap">
+    <div class="container box_1170">
+        <div class="section-top-border">
+            <h2 class="mb-30">Your shopping cart</h2>
+            <div class="progress-table-wrap">
+                <div class="progress-table">
+                    <div class="table-head">
+                        <div class="serial">Item</div>
+                        <div class="serial">#</div>
+                        <div class="visit">Cost Per Item</div>
+                        <div class="visit">Update</div>
+                        <div class="visit">Total</div>
+                        <div class="visit">Action</div>
+                    </div>
+                    {% for key, value in cart.items %}
+                    <div class="table-row">
+                        <div class="serial">{{value.title}}</div>
+                        <div class="serial">{{value.qty}}</div>
+                        <div class="visit">${{value.cost}}</div>
+                        <div class="visit">
+                            <form method="POST" action="{% url 'update_cart_quantity' lesson_id=value.id %}">
+                                {% csrf_token %}
+                                <input type="number" name="qty" value="{{value.qty}}" style="width:40px"/>
+                                <input type="submit" value="Update Qty" class="genric-btn default"/>
+                            </form>
+                        </div>
+                        <div class="visit">${{value.total_cost}}</div>
+                        <div class="visit"><a href="{% url 'remove_from_cart' lesson_id=value.id %}">Remove</a></div>
+                    </div>
+                    {%endfor%} 
+                </div>
+                <br>
+                <h4><a href="{% url 'view_all_lessons' %}">Looking for more knowledge?</a></h4>
+                <br>
+                <h3>Cart Total: ${{total}}
+                    <a href="{% url 'checkout' %}" class="genric-btn success circle">Checkout</a>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {%endblock%}

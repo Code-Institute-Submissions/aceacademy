@@ -4,17 +4,43 @@
 {% load cloudinary %}
 
 {%block content%}
-<h1>Lessons:</h1>
-<form method="GET">
-    {{search_lesson|crispy}}
-    <input type="submit" value="Search"/>
-</form>
-<ul>
-    {% for lesson in lessons %}
-        <li>
-            {{lesson.title}} 
-            {% cloudinary lesson.cover %}
-        </li>
-    {%endfor%}
-</ul>
+<section class="special_cource padding_top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-5">
+                <div class="section_tittle text-center">
+                    <p>Ace your math today</p>
+                    <h2>Browse Lessons</h2>
+                    <form method="GET">
+                        {{search_lesson|crispy}}
+                        <input type="submit" value="Search" class="button button-contactForm btn_1"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for lesson in lessons %}
+            <div class="col-sm-6 col-lg-4">
+                <div class="single_special_cource">
+                    <div class="single_feature_text">
+                        {% cloudinary lesson.cover width=400 height=300 %}
+                        <div class="special_cource_text">
+                            <a href="course-details.html" class="btn_4">{{lesson.syllabus}}</a>
+                            <h4>{{lesson.cost}}</h4>
+                            <a href="course-details.html"><h3>{{lesson.title}}</h3></a>
+                            <p>{{lesson.desc}} </p>
+                            <div class="author_info">
+                                <p>Conduct by:</p>
+                                <h5>{{lesson.instructor}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br><br>
+</section>
 {%endblock%}

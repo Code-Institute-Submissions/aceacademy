@@ -22,7 +22,7 @@
             {{r.review_content}}
         </div>
 
-        <p>By {{ r.reviewer}}</p>    
+        <p>By {{ r.reviewer}}</p> 
         <a href="{% url 'create_comment' review_id=r.id %}" class="btn btn-primary btn-sm">Leave a comment</a>
     </div>
 </div>

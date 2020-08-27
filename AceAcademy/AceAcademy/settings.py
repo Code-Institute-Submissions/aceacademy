@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'accounts',
     'lessons',
-    'forum',
     'cart',
     'checkout',
     'crispy_forms',

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from lessons import views
-import accounts.urls, lessons.urls, forum.urls, cart.urls, checkout.urls
+import accounts.urls, lessons.urls, cart.urls, checkout.urls
 
 urlpatterns = [
     path('', lessons.views.home,
@@ -25,7 +25,6 @@ urlpatterns = [
     path('instructors/', lessons.views.view_instructors_public),
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls')),
-    path('forum/', include('forum.urls')),
     path('account/', include('accounts.urls')),
     path('checkout/', include('checkout.urls')),
     path('lessons/', include('lessons.urls'))

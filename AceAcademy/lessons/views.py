@@ -22,8 +22,19 @@ def home(request):
 
 def view_lessons_public(request):
     lessons = Lesson.objects.all()
+
+    if request.GET:
+        queries = ~Q(pk__in=[])
+
+        if 'title' in request.GET and request.GET['title']:
+            title = request.GET['title']
+            queries = queries & Q(title__icontains=title)
+
+        lessons = lessons.filter(queries)
+    search_lesson = SearchForm(request.GET)
     return render(request, 'lessons/view_lessons_public.html', {
-        'lessons': lessons
+        'lessons': lessons,
+        'search_lesson': search_lesson
     })
 
 def view_instructors_public(request):
@@ -57,10 +68,8 @@ def view_lessons(request):
 def create_lesson(request):
     if request.method == 'POST':
         create_lesson = LessonForm(request.POST)
-        print(request.POST)
         if create_lesson.is_valid():
             create_lesson.save()
-            messages.success(request, f"New lesson has been created!")
             return redirect(reverse('view_all_lessons'))
         else:
             return render(request, 'lessons/create_lesson.html', {

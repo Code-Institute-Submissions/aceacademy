@@ -5,6 +5,27 @@ from cloudinary.models import CloudinaryField
 from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 
 # Create your models here.
+education_level = (
+    ('Lower Primary','Lower Primary'),
+    ('Upper Primary', 'Upper Primary'),
+    ('Lower Secondary','Lower Secondary'),
+    ('Upper Secondary','Upper Secondary'),
+    ('Junior College','JC')
+)
+
+syllabus = (
+    ('PSLE','PSLE'),
+    ('O Level', 'GCSE O Level'),
+    ('A Level','GCSE A Level')
+)
+
+tags = (
+    ('Primary Math','Primary Mathematics'),
+    ('Additional Math', 'Additional Mathematics'),
+    ('Elementary Math','Elementary Mathematics'),
+    ('H1 Math', 'H1 Mathematics'),
+    ('H2 Math', 'H2 Mathematics')
+)
 
 class Instructor(models.Model):
     instructor_full_name = models.CharField(blank=False, max_length=100, validators=[MinLengthValidator(3)])
@@ -29,11 +50,11 @@ class Reviews(models.Model):
 class Lesson(models.Model):
     title = models.CharField(blank=False, max_length=255)
     desc = models.TextField(blank=False)
-    cost = models.DecimalField(blank=False, max_digits=10, decimal_places=2)
-    syllabus = models.CharField(blank=False, max_length=100)
-    tags = models.CharField(blank=False, max_length=100)
-    education_level = models.CharField(blank=False, max_length=100)
-    cover = CloudinaryField()
+    cost = models.DecimalField(blank=False, max_digits=10, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(1000)])
+    syllabus = models.CharField(blank=False, choices=syllabus, default='A Level', max_length=100)
+    tags = models.CharField(blank=False, choices=tags, default='H2_math', max_length=100)
+    education_level = models.CharField(blank=False, default='Junior College', choices=education_level,  max_length=100)
+    cover = CloudinaryField(blank=False)
     instructor = models.ForeignKey('Instructor', on_delete=models.CASCADE)
 
     def __str__(self):

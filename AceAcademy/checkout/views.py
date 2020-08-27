@@ -82,7 +82,7 @@ def checkout_success(request):
 
 
 def checkout_cancelled(request):
-    return HttpResponse("checkout cancelled")
+    return redirect(reverse('view_all_lessons'))
 
 
 @csrf_exempt
@@ -118,8 +118,7 @@ def payment_completed(request):
         handle_payment(session)
 
     # status 200 means everything's ok
-    return HttpResponse(status=200)
-
+    return redirect(reverse('view_all_lessons'))
 
 def handle_payment(session):
 

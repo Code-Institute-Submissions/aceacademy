@@ -2,13 +2,21 @@
 {% load static %}
 
 {%block content%}
-<br><br>
-<ul>
-    {% for instructor in instructors %}
-        <li>
-            {{instructor.instructor_preferred_name}}
-        </li>
-    {%endfor%}
-</ul>
+<section class="special_cource padding_top">
+    <div class="container">
+        <div class="row">
+            {% for instructor in instructors %}
+            <div class="col-sm-3 col-xl-3 align-self-center">
+                <div class="single_feature_text ">
+                    <h2>{{instructor.instructor_preferred_name}}</h2>
+                    <p>Set have great you male grass yielding an yielding first their you're
+                        have called the abundantly fruit were man </p>
+                    <a href="#" class="btn_1">Read More</a>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</section>
 Keen on joining us as instructors? Send your resume <a href="mailto:hsu.enyang@gmail.com">here</a>!
 {%endblock%}
