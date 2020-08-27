@@ -3,5 +3,5 @@ from django.urls import path, include
 import forum.views
 
 urlpatterns = [
-    path('', forum.views.index)
+    path('', forum.views.forum)
 ]

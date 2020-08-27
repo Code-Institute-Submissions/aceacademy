@@ -1,50 +1,19 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
-from .models import Thread, Comments
-from .forms import CommentForm, ForumForm
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.db.models import Q
 
-# Create your views here.
+from .models import *
+from .forms import *
 
-
-def index(request):
-    # return HttpResponse("Reviews")
-    return render(request, 'reviews/index.template.html')
-
-def create_review(request, book_id):
-    book = get_object_or_404(Book, pk=book_id)
-    if request.method == "POST":
-        form = ForumForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.book = book
-            review.save()
-            return HttpResponse("Review is created")
-        else:
-            return HttpResponse("Form has error")
-    else:
-        form = ForumForm()
-        return render(request, 'reviews/create_review.template.html', {
-            "form": form,
-            "book": book
-        })
+from accounts.views import *
+from accounts.forms import CreateUserForm
+from accounts.decorators import unauthenticated_user, allowed_users, admin_only
 
 
-def create_comment(request, review_id):
-    review = get_object_or_404(Review, pk=review_id)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.review = review
-            comment.user = request.user
-            comment.save()
-            return HttpResponse("Comment created")
-        else:
-            return HttpResponse("Problem with input")
-    else:
-
-        form = CommentForm()
-        return render(request, 'reviews/create_comment.template.html', {
-            "form": form,
-            "review": review
-        })
+def forum(request):
+    return render(request, 'forum/forum.html')
