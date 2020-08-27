@@ -1,7 +1,7 @@
-from django.contrib import admin
-from django.urls import path, include
-import cart.views
+from django.urls import path
+from .views import add_to_cart
 
 urlpatterns = [
-    path('add/<lesson_id>', cart.views.add_to_cart)
+    path('cart/add/<lesson_id>/', cart.views.add_to_cart,
+        name="add_to_cart")
 ]

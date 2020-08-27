@@ -1,18 +1,25 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from lessons.models import Lesson
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.db.models import Q
+from datetime import date
 
-# Create your views here.
+from lessons.models import *
+from .forms import *
+
+from accounts.views import *
+from accounts.forms import CreateUserForm
+from accounts.decorators import unauthenticated_user, allowed_users, admin_only
+
 def add_to_cart(request, lesson_id):
-    # attempt to get existing cart from the session using the key "shopping_cart"
-    # the second argument will be the default value if 
-    # if the key does not exist in the session
     cart = request.session.get('shopping_cart', {})
     
-    # we check if the book_is not in the cart. If so, we will add it
     if lesson_id not in cart:
         lesson = get_object_or_404(Lesson, pk=lesson_id)
-        # book is found, let's add it to the cart
         cart[lesson_id] = {
             'id':lesson_id,
             'title': lesson.title,
@@ -24,8 +31,8 @@ def add_to_cart(request, lesson_id):
         request.session['shopping_cart'] = cart
         
         messages.success(request, "Lesson has been added to your cart!")
-        return HttpResponse("Done")
+        return redirect(reverse('home'))
     else:
         cart[lesson_id]['qty'] +=1
         request.session['shopping_cart'] = cart
-        return HttpResponse("Done")
+        return redirect(reverse('home'))
