@@ -1,4 +1,4 @@
-{% load static%}
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -54,19 +54,16 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="cource.html">Browse Courses</a>
+                                    <a class="nav-link" href="{% url 'view_lessons_public' %}">Lessons</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="cource.html">Instructors</a>
+                                    <a class="nav-link" href="{% url 'view_instructors_public' %}">Instructors</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="cource.html">Pricing</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/account/logout">Logout</a>
                                 </li>
                                 <li class="d-none d-lg-block">
                                     <a class="btn_1" href="/account/login">Login/Register</a>
