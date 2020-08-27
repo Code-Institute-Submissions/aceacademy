@@ -40,9 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'accounts',
     'lessons',
     'forum',
+    'cart',
+    'checkout',
     'crispy_forms',
     'cloudinary',
     'phonenumber_field',
@@ -72,10 +75,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.contexts.cart_contents'
             ],
         },
     },
 ]
+
+SITE_ID = 1
 
 # Alert/Success Message
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
@@ -158,3 +164,7 @@ CLOUDINARY = {
     'api_key': os.environ.get("CLOUDINARY_API_KEY"),
     'api_secret': os.environ.get("CLOUDINARY_API_SECRET")
 }
+
+# Stripe set-up
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
