@@ -1,0 +1,23 @@
+{% extends 'index_gated.html' %}
+
+{%block content %}
+<h1>Your shopping cart</h1>
+<ul>
+    {% for key, value in cart.items %}
+    <li>
+        {{value.title}} (${{value.cost}}) x {{value.qty}}<br/>
+        Total Cost: ${{value.total_cost}}  <br/>       
+        <form method="POST" action="{% url 'update_cart_quantity' lesson_id=value.id %}">
+            {% csrf_token %}
+            <a href="{% url 'remove_from_cart' lesson_id=value.id %}" class="btn btn-primary btn-sm">Remove</a>
+            <input type="text" name="qty" value="{{value.qty}}" style="width:40px"/>
+            <input type="submit" value="Update quantity" class="btn btn-primary btn-sm"/>
+        </form>
+    </li>
+    {%endfor%}
+</ul>
+<h3>Cart Total: ${{total}}
+    <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+</h3>
+
+{%endblock%}
