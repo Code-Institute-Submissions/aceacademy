@@ -15,6 +15,7 @@
             {{lesson.title}} 
             {% cloudinary lesson.cover %}
             {% if request.user.is_staff %}
+            <a href="{% url 'lesson_details' lesson_id=lesson.id %}">See more</a>
             <a href="{% url 'update_lesson' lesson_id=lesson.id %}">Edit</a>
             <a href="{% url 'delete_lesson' lesson_id=lesson.id %}">Delete</a>
             {%endif%}

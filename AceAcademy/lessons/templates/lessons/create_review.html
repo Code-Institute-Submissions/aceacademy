@@ -1,0 +1,12 @@
+{% extends 'index_gated.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Creating a new review for {{lesson.title}}</h1>
+<form method="POST">
+ {% csrf_token %}
+ {{ form|crispy}}
+ <input type="submit" value="Create Review" class="btn btn-primary"/>
+</form>
+{% endblock %}

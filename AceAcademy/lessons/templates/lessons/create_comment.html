@@ -1,0 +1,16 @@
+{% extends 'index_gated.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Add comment to the following review</h2>
+
+<blockquote>
+    {{review.review_content}}
+</blockquote>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form|crispy}}
+    <input type="submit" value="Leave a comment" class="btn btn-primary"/>
+</form>
+{% endblock %}

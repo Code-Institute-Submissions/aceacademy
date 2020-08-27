@@ -1,5 +1,5 @@
 from django import forms
-from .models import Lesson, Instructor, Reviews
+from .models import Lesson, Instructor, Reviews, Comment
 from django.db.models import Q
 from cloudinary.forms import CloudinaryJsFileField
 
@@ -21,7 +21,12 @@ class InstructorProfile(forms.ModelForm):
 class AddReview(forms.ModelForm):
     class Meta:
         model = Reviews
-        fields = ('lesson_reviewed', 'reviewer', 'review_content', 'review_date', 'rating')
+        fields = ('review_content', 'rating')
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('comment', )
 
 class SearchForm(forms.Form):
     title = forms.CharField(max_length=100, required=False)

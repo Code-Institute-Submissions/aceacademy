@@ -1,0 +1,30 @@
+{% extends 'index_gated.html' %}
+
+{%block content %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title"><h1>{{lesson.title}}</h1></div>
+
+       <div class="mt-3"> 
+            <a href="{% url 'create_review' lesson_id=lesson.id %}" class="btn btn-primary btn-sm">Add a review</a>   
+       </div>
+    </div>
+</div>
+
+<!-- show all the reviews -->
+<h1>Reviews</h1>
+{{lesson.reviews}}
+{% for r in lesson.reviews_set.all %}
+<div class="card">
+    <div class="card-body">
+        <div>
+            {{r.review_content}}
+        </div>
+
+        <p>By {{ r.reviewer}}</p>    
+        <a href="{% url 'create_comment' review_id=r.id %}" class="btn btn-primary btn-sm">Leave a comment</a>
+    </div>
+</div>
+{% endfor%}
+{%endblock%}

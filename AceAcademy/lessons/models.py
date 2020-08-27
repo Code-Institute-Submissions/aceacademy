@@ -39,4 +39,12 @@ class Lesson(models.Model):
     def __str__(self):
         return self.title
 
+class Comment(models.Model):
+    review_commented = models.ForeignKey('Reviews', on_delete=models.CASCADE)
+    commentor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    comment = models.TextField(blank=False)
+    comment_date = models.DateField(blank=False)
+
+    def __str__(self):
+        return self.comment
 
