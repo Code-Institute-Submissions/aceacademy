@@ -24,7 +24,7 @@ class Reviews(models.Model):
     rating = models.IntegerField(blank=False, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
-        return self
+        return self.review_content
         
 class Lesson(models.Model):
     title = models.CharField(blank=False, max_length=255)
@@ -37,6 +37,6 @@ class Lesson(models.Model):
     instructor = models.ForeignKey('Instructor', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self
+        return self.title
 
 
