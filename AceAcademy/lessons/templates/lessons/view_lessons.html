@@ -4,15 +4,17 @@
 {% load cloudinary %}
 
 {%block content%}
-<section class="special_cource padding_top">
+<section class="special_cource">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-5">
                 <div class="section_tittle text-center">
                     <h2>Search Lessons</h2>
+                    <br><br>
                     <form method="GET">
                         {{search_lesson|crispy}}
                         <input type="submit" class="button button-contactForm btn_1" value="Search"/>
+                        <br>
                         {% if request.user.is_staff %}<a href="{% url 'create_lesson' %}">Create a lesson</a>{%endif%}
                     </form>
                 </div>
@@ -25,22 +27,39 @@
                     <div class="single_feature_text">
                         {% cloudinary lesson.cover width=400 height=300 %}
                         <div class="special_cource_text">
-                            <a href="course-details.html" class="btn_4">{{lesson.syllabus}}</a>
-                            <h4>{{lesson.cost}}</h4>
-                            <a href="course-details.html"><h3>{{lesson.title}}</h3></a>
-                            <p>{{lesson.desc}} </p>
+
+                            {% if request.user.is_staff %} 
+                            
+                            <div class="btn_4">{{lesson.syllabus}}</div>
+                            <h4>SGD {{lesson.cost}}</h4>
+                            <h3>{{lesson.title}}</h3>
+                            <p>{{ lesson.desc |truncatechars:150}}</p> <a href="{% url 'update_lesson' lesson_id=lesson.id %}">(Read more)</a>
                             <div class="author_info">
                                 <p>Conduct by:</p>
                                 <h5>{{lesson.instructor}}</h5>
                             </div>
+
+                            {% else %}
+
+                            <a href="{% url 'lesson_details' lesson_id=lesson.id %}" class="btn_4">{{lesson.syllabus}}</a>
+                            <h4>SGD {{lesson.cost}}</h4>
+                            <a href="{% url 'lesson_details' lesson_id=lesson.id %}"><h3>{{lesson.title}}</h3></a>
+                            <p>{{ lesson.desc |truncatechars:150}}</p> <a href="{% url 'lesson_details' lesson_id=lesson.id %}">(Read more)</a>
+                            <div class="author_info">
+                                <p>Conduct by:</p>
+                                <h5>{{lesson.instructor}}</h5>
+                            </div>
+
+                            {% endif %}
+
                             <div class="author_info align-self-center">
                             {% if request.user.is_staff %}
                             <a href="{% url 'update_lesson' lesson_id=lesson.id %}" class="genric-btn info radius">Edit</a>
                             <a href="{% url 'delete_lesson' lesson_id=lesson.id %}" class="genric-btn danger radius">Delete</a>
                 
                             {%else%}
-                            <a href="{% url 'lesson_details' lesson_id=lesson.id %}">See more</a>
-                            <a href="{% url 'add_to_cart' lesson_id=lesson.id %}">Add to cart</a>
+                            <a href="{% url 'lesson_details' lesson_id=lesson.id %}" class="button button-contactForm btn_1"> Details </a>
+                            <a href="{% url 'add_to_cart' lesson_id=lesson.id %}" class="button button-contactForm btn_1">Add item</a>
                             
                             {%endif%}
                             </div>
@@ -54,7 +73,4 @@
     </div>
     <br><br>
 </section>
-
-
-
 {%endblock%}

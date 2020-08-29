@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, HttpResponse, reverse, redirect
 from django.contrib.sites.models import Site
 from django.views.decorators.csrf import csrf_exempt
@@ -20,7 +21,7 @@ endpoint_secret = "whsec_POYY2lesxtDj0w3b2rS7xeGFPSLsZYnf"
 
 # Create your views here.
 
-
+@login_required()
 def checkout(request):
     # tell Stripe what my api_key is
     stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -73,18 +74,18 @@ def checkout(request):
         "public_key": settings.STRIPE_PUBLISHABLE_KEY
     })
 
-
+@login_required()
 def checkout_success(request):
     request.session["shopping_cart"] = {}
     messages.success(request, "Your purchases been completed")
     return redirect(reverse('view_all_lessons'))
     # return HttpResponse("checkout success")
 
-
+@login_required()
 def checkout_cancelled(request):
     return redirect(reverse('view_all_lessons'))
 
-
+@login_required()
 @csrf_exempt
 def payment_completed(request):
     # retrieve the information from the payment (also known as the payload)
@@ -120,6 +121,7 @@ def payment_completed(request):
     # status 200 means everything's ok
     return redirect(reverse('view_all_lessons'))
 
+@login_required()
 def handle_payment(session):
 
     user = get_object_or_404(User, pk=session["client_reference_id"])

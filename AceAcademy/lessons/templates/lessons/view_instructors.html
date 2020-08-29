@@ -4,17 +4,49 @@
 {% load cloudinary %}
 
 {%block content%}
-<ul>
-    {% for instructor in instructors %}
-        <li>
-            {{instructors.instructor_preferred_name}} 
-            {% cloudinary instructor.cover %}
-            {% if request.user.is_staff %}
-            <a href="{% url 'update_lesson' lesson_id=lesson.id %}">Edit</a>
-            <a href="{% url 'delete_lesson' lesson_id=lesson.id %}">Delete</a>
-            {%endif%}
-        </li>
-    {%endfor%}
-</ul>
-See no lessons? <a href="{% url 'create_lesson' %}">Create one!</a>
+<section class="special_cource padding_top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-5">
+                <div class="section_tittle text-center">
+                    <h2>Search Instructors</h2>
+                    <br><br>
+                    <form method="GET">
+                        {{search_instructor|crispy}}
+                        <input type="submit" class="button button-contactForm btn_1" value="Search"/>
+                        <br>
+                        {% if request.user.is_staff %}<a href="{% url 'create_instructor' %}">Add a new instructor</a>{%endif%}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for instructor in instructors %}
+            <div class="col-sm-6 col-lg-4">
+                <div class="single_special_cource">
+                    <div class="single_feature_text">
+                        <div class="special_cource_text">
+                            {% cloudinary instructor.cover width=300 height=400 %}<br>
+                            <h3>Hi there, I am {{instructor.instructor_preferred_name}}!</h3>
+                            <h5>I have {{instructor.years_experience}} years of experience and a {{instructor.qualifications}}!</h5>
+                            <div class="author_info align-self-center">
+                                {% if request.user.is_staff %}
+                                <a href="{% url 'update_instructor' instructor_id=instructor.id %}" class="genric-btn info radius">Edit</a>
+                                <a href="{% url 'delete_instructor' instructor_id=instructor.id %}" class="genric-btn danger radius">Delete</a>
+                                
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            Keen on joining us as instructor? <a href="mailto:hsu.enyang@gmail.com"> Send in your resume!</a>
+        </div>
+    </div>
+    <br><br>
+</section>
 {%endblock%}

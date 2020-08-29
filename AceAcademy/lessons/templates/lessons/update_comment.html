@@ -1,0 +1,29 @@
+{% extends 'index_gated.html' %}
+{% load cloudinary %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{%block content%}
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-lg-6 align-self-center">
+            <div class="learning_img">
+                <img src="{% static 'img/formfill2.jpg' %}">
+            </div>
+        </div>
+        <div class="col-md-5 col-lg-5 align-self-center">
+            <h2>Update Comment:</h2>
+            <h4>{{comment.content}}
+            <br>
+            <form method="POST" enctype="multipart/form-data" id="form">
+                {% csrf_token %}
+                {{ form|crispy}}
+                <input type="Submit" class="btn_1"/>
+                <a href="{% url 'view_forum' %}">Cancel</a>
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
+{%endblock%}

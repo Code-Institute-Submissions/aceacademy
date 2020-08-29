@@ -1,0 +1,24 @@
+{% extends 'index_gated.html' %}
+{% load static %}
+
+{%block content%}
+<div class="container d-flex justify-content-center">
+    <div class="row">
+        <div class="col-md-8 col-lg-8 align-self-center">
+            <div class="learning_img">
+                <img src="{% static 'img/formfill1.jpg' %}">
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 align-self-center">
+            <h1>Delete {{instructor.instructor_full_name}}</h1>
+            <h3>Are you sure?</h3>
+            <p>In line with PDPA Regulations, once an instructor is removed - his/her will be erased.
+            <form method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Yes" class="genric-btn danger">
+                <a href="{% url 'view_instructors' %}" class="genric-btn success">No</a>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

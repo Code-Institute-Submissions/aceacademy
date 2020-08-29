@@ -1,0 +1,80 @@
+{% extends 'index_gated.html' %}
+{% load cloudinary %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{%block content%}
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-lg-6 align-self-center">
+            <div class="learning_img">
+                <img src="{% static 'img/formfill2.jpg' %}">
+            </div>
+        </div>
+        <div class="col-md-5 col-lg-5 align-self-center">
+            <h2>New instructor:</h2>
+            <br>
+            <form method="POST" id="form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" class="btn_1"/>
+                <a href="{% url 'view_instructors' %}">Cancel</a>
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
+
+{%endblock%}
+
+
+{%block js%}
+
+{% cloudinary_includes %}
+{% cloudinary_js_config %}
+<script>
+    function prettydump(obj) {
+        ret = ""
+        $.each(obj, function(key, value) {
+        ret += "<tr><td>" + key + "</td><td>" + value + "</td></tr>";
+        });
+        return ret;
+    }
+
+    // jQuery ready
+    $(function(){
+        // console.log("Hello");
+        $("#form input[type='file']").cloudinary_fileupload({
+            dropZone:"#form",
+            start: function() {
+                console.log("Starting upload...")
+                $('.status_value').text("Starting direct upload...")
+            },
+            progress:function() {
+                console.log("uploading...")
+                $('.status_value').text("Uploading...");
+            }
+        }).on("cloudinarydone", function(e, data){
+            $('.status_value').text("Upload done");
+
+            // for debugging
+            var info = $('<div class="uploaded_info"/>');
+                    $(info).append($('<div class="data"/>').append(prettydump(data.result)));
+                    $(info).append($('<div class="image"/>').append(
+                    $.cloudinary.image(data.result.public_id, {
+                    format: data.result.format, width: 150, height: 150, crop: "fill"
+                })
+            ));
+            $('.uploaded_info_holder').append(info);
+            // end debugging         
+            // $("#div_id_cover").remove()
+            $("#form input[type='file']").parent().parent().remove();
+        })  
+
+        
+    }) // end $(function
+</script>
+
+{%endblock%}

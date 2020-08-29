@@ -1,16 +1,28 @@
 {% extends 'index_gated.html' %}
+{% load cloudinary %}
+{% load static %}
 {% load crispy_forms_tags %}
 
-{% block content %}
-<h2>Add comment to the following review</h2>
 
-<blockquote>
-    {{review.review_content}}
-</blockquote>
+{%block content%}
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-lg-6 align-self-center">
+            <div class="learning_img">
+                <img src="{% static 'img/formfill2.jpg' %}">
+            </div>
+        </div>
+        <div class="col-md-5 col-lg-5 align-self-center">
+            <h2>Input answers here:</h2>
+            <br><br>
+            <form method="POST" enctype="multipart/form-data" id="form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" class="btn_1"/> <a href="{% url 'view_forum' %}">Cancel</a>
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form|crispy}}
-    <input type="submit" value="Leave a comment" class="btn btn-primary"/>
-</form>
-{% endblock %}
+{%endblock%}

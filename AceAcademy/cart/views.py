@@ -1,20 +1,13 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
-from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Group
 from django.db.models import Q
 from datetime import date
 
 from lessons.models import Lesson
 
-from accounts.views import *
-from accounts.forms import CreateUserForm
-from accounts.decorators import unauthenticated_user, allowed_users, admin_only
-
-
+@login_required()
 def add_to_cart(request, lesson_id):
 
     # the cart object is a dictionary
@@ -45,7 +38,7 @@ def add_to_cart(request, lesson_id):
     request.session['shopping_cart'] = cart
     return redirect(reverse('view_cart'))
 
-
+@login_required()
 def view_cart(request):
     # loading the content of the 'shopping_cart' from the session
     cart = request.session.get('shopping_cart', {})
@@ -60,8 +53,7 @@ def view_cart(request):
         "cart": cart,
         "total": total
     })
-
-
+@login_required()
 def remove_from_cart(request, lesson_id):
     cart = request.session["shopping_cart"]
     if lesson_id in cart:
@@ -74,8 +66,7 @@ def remove_from_cart(request, lesson_id):
         messages.success(request, "The item has been removed")
 
     return redirect(reverse('view_cart'))
-
-
+@login_required()
 def update_quantity(request, lesson_id):
     # get the shopping cart
     cart = request.session["shopping_cart"]
